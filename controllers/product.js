@@ -5,13 +5,30 @@ const products = [
     { id: 4, name: "Desk Chair", price: 200, category: "Furniture" },
     { id: 5, name: "Backpack", price: 50, category: "Travel" },
   ];
+
+  const ProductsModel = require("../models/product") 
   
   
 
-const addProduct = (req, res)=>{
-    res.status(201).json({
-        message: "Product created!"
-    })
+const addProduct = async (req, res)=>{
+    try {
+        const product = await ProductsModel.create(req.body)
+        if(!product){
+            res.status(400).json({
+                status: 'error',
+                message: 'Product not added..'
+            })
+            return
+        }
+
+        res.status(201).json({
+            status: 'success',
+            message: "Product added successfully",
+            product
+        })
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 const fetchProducts = (req, res)=>{

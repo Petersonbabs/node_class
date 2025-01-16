@@ -7,6 +7,11 @@ const AuthRoute = require('./routes/auth')
 const ProductRoute = require("./routes/product")
 const UserRoute = require("./routes/user")
 
+// config
+
+const connectToDb = require('./config/connectToDb')
+connectToDb()
+
 app.use(cors())
 app.use(express.json())
 
