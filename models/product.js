@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+// OBJECTID,  REF, POPULATE
+
 const ProductSchema = mongoose.Schema({
     name: {
         type: String,
@@ -17,6 +19,11 @@ const ProductSchema = mongoose.Schema({
     approved: {
         type: Boolean,
         default: false
+    },
+    category: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'categories',
+        required: [true, 'Category is required from category model']
     }
 })
 

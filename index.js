@@ -6,6 +6,7 @@ const app = express()
 const AuthRoute = require('./routes/auth')
 const ProductRoute = require("./routes/product")
 const UserRoute = require("./routes/user")
+const CategoryRoute = require("./routes/category")
 
 // config
 
@@ -25,6 +26,7 @@ app.listen(PORT, () => {
 app.use('/auth', AuthRoute)
 app.use('/products', ProductRoute)
 app.use("/user", UserRoute)
+app.use("/category", CategoryRoute)
 
 
 
