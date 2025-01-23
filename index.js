@@ -10,6 +10,8 @@ const CategoryRoute = require("./routes/category")
 
 // config
 
+
+
 const connectToDb = require('./config/connectToDb')
 connectToDb()
 
@@ -23,10 +25,10 @@ app.listen(PORT, () => {
 })
 
 
-app.use('/auth', AuthRoute)
-app.use('/products', ProductRoute)
-app.use("/user", UserRoute)
-app.use("/category", CategoryRoute)
+app.use('/api/v1/auth', AuthRoute)
+app.use('/api/v1/products', ProductRoute)
+app.use("/api/v1/user", UserRoute)
+app.use("/api/v1/category", CategoryRoute)
 
 
 

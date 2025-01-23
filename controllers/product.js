@@ -33,7 +33,7 @@ const addProduct = async (req, res) => {
 
 const fetchProducts = async (req, res) => {
     try {
-        const products = await ProductsModel.find().populate("category")
+        const products = await ProductsModel.find()
         if (!products) {
             res.status(404).json({
                 status: 'error',
