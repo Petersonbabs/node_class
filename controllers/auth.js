@@ -1,6 +1,8 @@
 const UserModel = require("../models/auth")
 const bcrypt = require("bcryptjs")
 const jwt = require('jsonwebtoken')
+const generateToken = require("../utils/randomString")
+const sendVerificationEmail = require("../services/nodemailer/sendVerificationEmail")
 
 const login = async (req, res) => {
    const {email, password} = req.body
@@ -42,7 +44,15 @@ const signup = async (req, res) => {
     try {
         const salt = await bcrypt.genSalt(12)
         const hashedPassword = await bcrypt.hash(password, salt)
-        const user = await UserModel.create({name, email, age, password: hashedPassword})
+        
+
+        // GENERATE TOKEN 
+        const verificationToken = generateToken(16)
+        // CREATE VERIFICATION EXPIRATION
+        const verificationExp =  Date.now() + 36000000
+        
+
+        const user = await UserModel.create({name, email, age, password: hashedPassword, verificationExp, verificationToken})
         if (!user) {
             res.status(400).json({
                 status: 'error',
@@ -50,6 +60,8 @@ const signup = async (req, res) => {
             })
             return
         }
+
+        sendVerificationEmail(name, email, verificationToken)
 
         res.status(201).json({
             status: 'success',

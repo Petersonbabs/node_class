@@ -23,8 +23,12 @@ const UserSchema = mongoose.Schema({
         enum: ['user', 'admin'],
         default: 'user'
     },
-    favTheme: {
-        
+    verificationToken: {
+        type: String,
+        unique: true
+    },
+    verificationExp:{
+        type: Number
     }
 })
 

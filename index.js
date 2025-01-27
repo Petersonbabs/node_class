@@ -10,10 +10,11 @@ const CategoryRoute = require("./routes/category")
 
 // config
 
-
+const sendEmail = require("./services/nodemailer/sendVerificationEmail")
 
 const connectToDb = require('./config/connectToDb')
 connectToDb()
+sendEmail("Peter babs", "peter.babs.dev@gmail.com", "q89ywiyuvhakhdog")
 
 app.use(cors())
 app.use(express.json())
