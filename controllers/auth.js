@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs")
 const jwt = require('jsonwebtoken')
 const generateToken = require("../utils/randomString")
 const sendVerificationEmail = require("../services/nodemailer/sendVerificationEmail")
+const sendEmailVerifiedMessage = require("../services/nodemailer/virifiedMessage")
 
 const login = async (req, res) => {
    const {email, password} = req.body
@@ -75,6 +76,30 @@ const signup = async (req, res) => {
     }
 }
 
+const verifyAccount = async (req, res)=>{
+    const {token} = req.params
+    try {
+        const user = await UserModel.findOne({verificationToken: token, verificationExp: {$gt: Date.now()}})
+        if(!user){
+            res.status(403).json({
+                status: "error",
+                message: "Verification token invalid or has expired"
+            })
+            return
+        }
+        await UserModel.findByIdAndUpdate(user._id, {isVerified: true, verificationExpiration: null, verificationToken: null})
+        sendEmailVerifiedMessage(user.name, user.email)
+        res.status(200).json({
+            status: 'success',
+            message: 'Verification successful!',
+            user
+        })
+        
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 const logout = async (req, res)=>{
     // black current otken
     
@@ -82,5 +107,6 @@ const logout = async (req, res)=>{
 
 module.exports = {
     login,
-    signup
+    signup,
+    verifyAccount
 }

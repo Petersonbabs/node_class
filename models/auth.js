@@ -25,10 +25,13 @@ const UserSchema = mongoose.Schema({
     },
     verificationToken: {
         type: String,
-        unique: true
     },
     verificationExp:{
         type: Number
+    },
+    isVerified: {
+        type: Boolean,
+        default: false
     }
 })
 

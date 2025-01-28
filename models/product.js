@@ -20,6 +20,9 @@ const ProductSchema = mongoose.Schema({
         type: Boolean,
         default: false
     },
+    email: {
+        type: String,
+    },  
     category: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'categories',
