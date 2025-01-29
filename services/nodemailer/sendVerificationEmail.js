@@ -11,7 +11,7 @@ const sendVerificationEmail = async (name, email, token)=>{
             <div style="display:flex; flex-direction:column; gap: 1rem;">
                 <h2>Hello, ${name}</h2>
                 <p>Thanks fo signing up.</p>
-                <a href="${process.env.clientDomain}/verify/${token}">Verify email</a>
+                <a href="${process.env.clientDomain}/verify/${token}" style="padding: .5rem 1rem; border: none; border-radius:8px; background: blue; color: white; display:block; margin:1rem auto;">Verify email</a>
             </div>
         `
     }

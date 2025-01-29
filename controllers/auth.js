@@ -46,7 +46,6 @@ const signup = async (req, res) => {
         const salt = await bcrypt.genSalt(12)
         const hashedPassword = await bcrypt.hash(password, salt)
         
-
         // GENERATE TOKEN 
         const verificationToken = generateToken(16)
         // CREATE VERIFICATION EXPIRATION

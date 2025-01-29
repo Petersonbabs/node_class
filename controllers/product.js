@@ -21,6 +21,8 @@ const addProduct = async (req, res) => {
             return
         }
 
+        // SEND A "PRODUCT HAS BEEN ADDED" MAIL TO SELLER
+
         res.status(201).json({
             status: 'success',
             message: "Product added successfully",
